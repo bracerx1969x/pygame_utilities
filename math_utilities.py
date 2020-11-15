@@ -1,9 +1,11 @@
 def normalize(value, minimum, maximum):
-    return (value - minimum) / (maximum - minimum)
+    smallest, largest = min(minimum, maximum), max(minimum, maximum)
+    return (value - smallest) / (largest - smallest)
 
 
 def lerp(normalized, minimum, maximum):
-    return (maximum - minimum) * normalized + minimum
+    smallest, largest = min(minimum, maximum), max(minimum, maximum)
+    return (largest - smallest) * normalized + smallest
 
 
 def map_value(value, source_min, source_max, dest_min, dest_max):
