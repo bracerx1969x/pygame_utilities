@@ -1,0 +1,17 @@
+from  pygame import Color
+
+BLACK = Color('black')
+DARK_GRAY = Color('darkgray')
+LT_GRAY = Color('lightgray')
+WHITE = Color('white')
+GOLD = Color('gold')
+RED = Color('red')
+ORANGE = Color('orange')
+YELLOW = Color('yellow')
+LIME = Color('limegreen')
+GREEN = Color('green')
+CYAN = Color('cyan')
+BLUE = Color('blue')
+VIOLET = Color('violet')
+PURPLE = Color('purple')
+MAGENTA = Color('magenta')
