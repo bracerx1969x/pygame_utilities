@@ -21,7 +21,8 @@ def at_least(value, floor):
 
 
 def clamp(value, minimum, maximum):
-    return truncate(at_least(value, minimum), maximum)
+    smallest, largest = min(minimum, maximum), max(minimum, maximum)
+    return truncate(at_least(value, smallest), largest)
 
 
 def scale_value(value, scale_factor):
