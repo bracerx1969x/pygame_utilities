@@ -25,5 +25,14 @@ def clamp(value, minimum, maximum):
     return truncate(at_least(value, smallest), largest)
 
 
+def wrap(value, minimum, maximum):
+    smallest, largest = min(minimum, maximum), max(minimum, maximum)
+    if value < smallest:
+        return largest
+    if value > largest:
+        return smallest
+    return value
+
+
 def scale_value(value, scale_factor):
     return value * scale_factor

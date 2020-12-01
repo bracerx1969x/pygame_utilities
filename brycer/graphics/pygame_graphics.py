@@ -1,8 +1,7 @@
-import os
 import pygame
 
 
-def load_image(image_path, colorkey=None):
+def load_image(image_path, colorkey=None, return_rect=False):
     try:
         image = pygame.image.load(image_path)
     except pygame.error as message:
@@ -13,7 +12,9 @@ def load_image(image_path, colorkey=None):
         if colorkey == -1:
             colorkey = image.get_at((0, 0))
         image.set_colorkey(colorkey, pygame.RLEACCEL)
-    return image, image.get_rect()
+    if return_rect:
+        return image, image.get_rect()
+    return image
 
 
 def setup_display(win_width, win_height, caption = None):
@@ -47,3 +48,24 @@ def build_spritesheet(image, frame_layout, color_key):
     anim_library = dict()
     anim_library['all'] = [n for n in range(frame_layout[0] * frame_layout[1])]
     return store, anim_library
+
+
+def draw_cross(surface, crosspoint, line_color, line_width, horizontal=True, vertical=True):
+    surface_rect = surface.get_rect()
+    point = pygame.math.Vector2(crosspoint)
+    if horizontal:
+        pygame.draw.line(
+                         surface,
+                         line_color,
+                         (surface_rect.left, point.y),
+                         (surface_rect.right, point.y),
+                         line_width
+                        )
+    if vertical:
+        pygame.draw.line(
+                         surface,
+                         line_color,
+                         (point.x, surface_rect.top),
+                         (point.x, surface_rect.bottom),
+                         line_width
+                        )

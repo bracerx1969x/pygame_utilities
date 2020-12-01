@@ -1,4 +1,4 @@
-from  pygame import Color
+from pygame import Color
 
 BLACK = Color('black')
 DARK_GRAY = Color('darkgray')

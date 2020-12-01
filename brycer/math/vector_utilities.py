@@ -1,5 +1,5 @@
 from pygame.math import Vector2
-import math_utilities
+from brycer.math import math_utilities
 
 
 def calc_vector(magnitude, angle):
@@ -7,7 +7,30 @@ def calc_vector(magnitude, angle):
 
 
 def truncate(value, limit):
+    """
+    truncate function for vectors
+    """
     return value if value.length() < limit.length() else limit
+
+
+def at_least(value, floor):
+    """
+    at least function for vectors
+    """
+    return value if value.length() > floor.length() else floor
+
+
+def clamp(value, minimum, maximum):
+    """
+    Clamp function for vectors
+    """
+    if minimum.length() < maximum.length():
+        smallest = minimum
+        largest = maximum
+    else:
+        smallest = maximum
+        largest = minimum
+    return truncate(at_least(value, smallest), largest)
 
 
 def limit_rotation(current, desired, rotation_limit) -> Vector2:
@@ -24,20 +47,12 @@ def compass(angle):
     # return (270 - angle) % 360
 
 
-def polar(angle):
-    # return polar angle
-    return
+def to_polar(angle):
+    # convert compass bearing to polar angle
+    return (angle - 270) if angle > 90 else (angle + 90)
 
 
 if __name__ == '__main__':
-    v1_angle = 50
-    v1 = calc_vector(10, v1_angle)
-    v2 = limit_rotation(v1, 10, 7)
-    print(v2.as_polar()[1])
-    print(calc_vector(1, 57).as_polar()[1])
-    v3 = Vector2((1, 0))
-    v3.rotate_ip(57)
-    print(v3.as_polar()[1])
     print()
-    for i in range(-180, 190, 10):
-        print(i, compass(i))
+    v1 = Vector2()
+    print(to_polar(0))
