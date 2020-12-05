@@ -54,16 +54,29 @@ def clamp(value: Vector2, minimum: [int, float], maximum: [int, float]) -> Vecto
     return truncate(at_least(value, smallest), largest)
 
 
-def limit_rotation(current, desired, rotation_limit) -> Vector2:
+# TODO broken code - does not work properly
+def limit_rotation(current: Vector2, desired: Vector2, rotation_limit: [int, float]) -> Vector2:
     """
-    Limit a vector angle change to within value +/- of rotatin_limit
+    :param current - vector to be rotated
+    :param desired - desired angle
+    :param rotation_limit - angle rotation limit (in degrees)
+    :return pygame.math.Vector2 object
+    Returns a vector object that is rotated towards the desired vector.
+    Rotation is constrained to rotation limit.
     """
-    magnitude, angle = current.as_polar()
-    return calc_vector(magnitude, math_utilities.clamp(angle + desired, angle - rotation_limit, angle + rotation_limit))
+    rotation_limit = abs(rotation_limit)
+    current_mag, current_angle = current.as_polar()
+    # desired_change = (desired - current).as_polar()
+    change = math_utilities.clamp((desired - current).as_polar()[1], -rotation_limit, rotation_limit)
+    return calc_vector(current_mag, current_angle + change)
 
 
 def compass(angle):
     return angle - 90 if angle > 90 else (angle + 270) % 360
+
+
+def as_bearing(vector):
+    return (Vector2(0, 1).angle_to(vector) + 360) % 360
 
 
 def to_polar(angle):
@@ -78,17 +91,33 @@ def as_integer(vector: Vector2):
 
 if __name__ == '__main__':
     # testing
-    print()
-    v1 = Vector2(191, 0)
-    lower_limit = Vector2(200, 0)
-    upper_limit = Vector2(500, 0)
+    # print()
+    # v1 = Vector2(191, 0)
+    # lower_limit = Vector2(200, 0)
+    # upper_limit = Vector2(500, 0)
+    #
+    # v1.rotate_ip(45)
+    # lower_limit.rotate_ip(0)
+    # upper_limit.rotate_ip(0)
+    # print("value=", v1, v1.length(), v1.as_polar()[1])
+    # print("lower_limit=", lower_limit, lower_limit.length(), lower_limit.as_polar()[1])
+    # print("upper_limit=", upper_limit, upper_limit.length(), upper_limit.as_polar()[1])
+    # v2 = clamp(as_integer(v1), lower_limit, upper_limit)
+    # print("v2=", v2, v2.length(), v2.as_polar()[1])
+    # print(as_integer(v2))
 
-    v1.rotate_ip(45)
-    lower_limit.rotate_ip(0)
-    upper_limit.rotate_ip(0)
-    print("value=", v1, v1.length(), v1.as_polar()[1])
-    print("lower_limit=", lower_limit, lower_limit.length(), lower_limit.as_polar()[1])
-    print("upper_limit=", upper_limit, upper_limit.length(), upper_limit.as_polar()[1])
-    v2 = clamp(as_integer(v1), lower_limit, upper_limit)
-    print("v2=", v2, v2.length(), v2.as_polar()[1])
-    print(as_integer(v2))
+    v1 = Vector2(10, 10)
+    v2 = Vector2(20, -10)
+    v3 = limit_rotation(v1, v2, 180)
+    print("v1=", v1, v1.as_polar(), compass(v1.as_polar()[1]))
+    print("v2=", v2, v2.as_polar(), compass(v2.as_polar()[1]))
+    print("v3=", v3, v3.as_polar(), compass(v3.as_polar()[1]))
+    # print("v1-D-v2=", (v2-v1), (v2-v1).as_polar(), compass((v2-v1).as_polar()[1]))
+    print()
+    # v4 = Vector2(0,1)
+    # v4.angle_to(v2)
+    # print(v4, 360 + v4.angle_to(v1))
+    # print((v2-v1),  (v1-v2).as_polar()[1])
+    # for i in range(0, 370, 10):
+    #     v1 = calc_vector(10, i)
+    #     print("v1=", v1, v1.as_polar(), compass(v1.as_polar()[1]), as_bearing(v1))
