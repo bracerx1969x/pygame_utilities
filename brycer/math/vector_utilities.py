@@ -106,18 +106,3 @@ if __name__ == '__main__':
     # print("v2=", v2, v2.length(), v2.as_polar()[1])
     # print(as_integer(v2))
 
-    v1 = Vector2(10, 10)
-    v2 = Vector2(20, -10)
-    v3 = limit_rotation(v1, v2, 180)
-    print("v1=", v1, v1.as_polar(), compass(v1.as_polar()[1]))
-    print("v2=", v2, v2.as_polar(), compass(v2.as_polar()[1]))
-    print("v3=", v3, v3.as_polar(), compass(v3.as_polar()[1]))
-    # print("v1-D-v2=", (v2-v1), (v2-v1).as_polar(), compass((v2-v1).as_polar()[1]))
-    print()
-    # v4 = Vector2(0,1)
-    # v4.angle_to(v2)
-    # print(v4, 360 + v4.angle_to(v1))
-    # print((v2-v1),  (v1-v2).as_polar()[1])
-    # for i in range(0, 370, 10):
-    #     v1 = calc_vector(10, i)
-    #     print("v1=", v1, v1.as_polar(), compass(v1.as_polar()[1]), as_bearing(v1))
