@@ -1,5 +1,5 @@
 from pygame.math import Vector2
-from brycer.math import math_utilities
+
 
 def calc_vector(magnitude: [int, float], angle: [int, float]) -> Vector2:
     """
@@ -74,4 +74,3 @@ def as_integer(vector: Vector2):
 if __name__ == '__main__':
     # testing
     print()
-
