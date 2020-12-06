@@ -74,22 +74,4 @@ def as_integer(vector: Vector2):
 if __name__ == '__main__':
     # testing
     print()
-    v1 = calc_vector(10, 45)
-    v2 = (v1 + calc_vector(10, -90))
-    print("Heading from Origin: ", as_heading(v1))
-    print("Desired Heading: ", as_heading(v2-v1))
-    print("Total Rotation needed: ", v2.as_polar()[1])
-    v3 = v1
-    print(v3, as_heading(v3), v3.as_polar()[1])
 
-
-    #
-    # v1.rotate_ip(45)
-    # lower_limit.rotate_ip(0)
-    # upper_limit.rotate_ip(0)
-    # print("value=", v1, v1.length(), v1.as_polar()[1])
-    # print("lower_limit=", lower_limit, lower_limit.length(), lower_limit.as_polar()[1])
-    # print("upper_limit=", upper_limit, upper_limit.length(), upper_limit.as_polar()[1])
-    # v2 = clamp(as_integer(v1), lower_limit, upper_limit)
-    # print("v2=", v2, v2.length(), v2.as_polar()[1])
-    # print(as_integer(v2))
