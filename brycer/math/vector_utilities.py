@@ -1,4 +1,8 @@
 from pygame.math import Vector2
+"""
+Collection of utility functions that operate on the pygame Vector2 object
+(If these were all built into the Vector2 object, it would make pygame coding easier.)
+"""
 
 
 def calc_vector(magnitude: [int, float], angle: [int, float]) -> Vector2:
@@ -53,20 +57,40 @@ def clamp(value: Vector2, minimum: [int, float], maximum: [int, float]) -> Vecto
     return truncate(at_least(value, smallest), largest)
 
 
-def compass(angle):
+def compass(angle) -> float:
+    """
+    :param angle - angle in polar degrees to convert to heading
+    :return Returns the counter-clockwise heading angle.
+    Useful for inputting into the pygame.image.transform function to get
+    the image pointing in the correct direction.
+    """
     return angle - 90 if angle > 90 else (angle + 270) % 360
 
 
-def as_heading(vector):
+def as_heading(vector) -> float:
+    """
+    :param vector
+    :return pygame.math.Vector2 object
+    Returns the counter-clockwise heading angle of the given vector.
+    Useful for inputting into the pygame.image.transform function to get
+    the image pointing in the same direction as the vector.
+    """
     return (Vector2(0, 1).angle_to(vector) + 360) % 360
 
 
 def to_polar(angle):
-    # convert compass bearing to polar angle
+    """
+    :param angle - angle in counter-clockwise compass degrees
+    :return Returns the polar angle.
+    """
     return (angle - 270) if angle > 90 else (angle + 90)
 
 
 def as_integer(vector: Vector2):
+    """
+    :param vector - vector to convert
+    :return Returns a rounded integer version of the vector.
+    """
     _x, _y = vector.xy
     return Vector2((int(round(_x, 0)), int(round(_y, 0))))
 
