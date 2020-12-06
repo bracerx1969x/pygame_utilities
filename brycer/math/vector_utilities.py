@@ -1,7 +1,6 @@
 from pygame.math import Vector2
 from brycer.math import math_utilities
 
-
 def calc_vector(magnitude: [int, float], angle: [int, float]) -> Vector2:
     """
     :param magnitude - length of the new vector
@@ -54,28 +53,11 @@ def clamp(value: Vector2, minimum: [int, float], maximum: [int, float]) -> Vecto
     return truncate(at_least(value, smallest), largest)
 
 
-# TODO broken code - does not work properly
-# def limit_rotation(current: Vector2, desired: Vector2, rotation_limit: [int, float]) -> Vector2:
-#     """
-#     :param current - vector to be rotated
-#     :param desired - desired angle
-#     :param rotation_limit - angle rotation limit (in degrees)
-#     :return pygame.math.Vector2 object
-#     Returns a vector object that is rotated towards the desired vector.
-#     Rotation is constrained to rotation limit.
-#     """
-#     rotation_limit = abs(rotation_limit)
-#     current_mag, current_angle = current.as_polar()
-#     # desired_change = (desired - current).as_polar()
-#     change = math_utilities.clamp((desired - current).as_polar()[1], -rotation_limit, rotation_limit)
-#     return calc_vector(current_mag, current_angle + change)
-
-
 def compass(angle):
     return angle - 90 if angle > 90 else (angle + 270) % 360
 
 
-def as_bearing(vector):
+def as_heading(vector):
     return (Vector2(0, 1).angle_to(vector) + 360) % 360
 
 
@@ -91,10 +73,16 @@ def as_integer(vector: Vector2):
 
 if __name__ == '__main__':
     # testing
-    # print()
-    # v1 = Vector2(191, 0)
-    # lower_limit = Vector2(200, 0)
-    # upper_limit = Vector2(500, 0)
+    print()
+    v1 = calc_vector(10, 45)
+    v2 = (v1 + calc_vector(10, -90))
+    print("Heading from Origin: ", as_heading(v1))
+    print("Desired Heading: ", as_heading(v2-v1))
+    print("Total Rotation needed: ", v2.as_polar()[1])
+    v3 = v1
+    print(v3, as_heading(v3), v3.as_polar()[1])
+
+
     #
     # v1.rotate_ip(45)
     # lower_limit.rotate_ip(0)
@@ -105,4 +93,3 @@ if __name__ == '__main__':
     # v2 = clamp(as_integer(v1), lower_limit, upper_limit)
     # print("v2=", v2, v2.length(), v2.as_polar()[1])
     # print(as_integer(v2))
-
