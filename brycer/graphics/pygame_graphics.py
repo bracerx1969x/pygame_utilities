@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 def load_image(image_path, colorkey=None, return_rect=False):
@@ -69,3 +70,27 @@ def draw_cross(surface, crosspoint, line_color, line_width, horizontal=True, ver
                          (point.x, surface_rect.bottom),
                          line_width
                         )
+
+
+def random_spawn(area: pygame.rect.Rect, excluded: list = None) -> (int, int):
+    """
+    :param area - overall game boundaries
+    :param excluded - list of pygame.rect.Rect containing excluded zones
+    :returns tuple containing (x, y) coordinates of accepted position
+    Return acceptable position coordinates from given game area that is not in the exclusion zone list.
+    """
+    pos_x = pos_y = 0
+    bad_pos = True
+    while bad_pos:
+        pos_x = random.randrange(area.left, area.right, 10)
+        pos_y = random.randrange(area.top, area.bottom, 10)
+        print(f'({pos_x}, {pos_y})')
+        if excluded:
+            x_area: pygame.rect.Rect
+            for x_area in excluded:
+                print(x_area)
+                if not (x_area.left < pos_x < x_area.right and x_area.top < pos_y < x_area.bottom):
+                    bad_pos = False
+        else:
+            bad_pos = False
+    return pos_x, pos_y
