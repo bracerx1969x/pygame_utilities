@@ -1,15 +1,15 @@
 from abc import abstractmethod
 import pygame
 from pygame.math import Vector2
-import vector_utilities
+from brycer.math import vector_utilities
 
 
 class ImprovedSprite(pygame.sprite.DirtySprite):
 
     DEFAULT = "default"
 
-    def __init__(self, position, bearing: int, group_list = None):
-        super(ImprovedSprite, self).__init__(group_list)
+    def __init__(self, position, bearing: int):
+        super(ImprovedSprite, self).__init__()
         # inherited attributes from DirtySprite
         self.dirty = 1
         self.visible = 1
