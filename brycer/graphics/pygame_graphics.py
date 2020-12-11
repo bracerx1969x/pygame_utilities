@@ -84,11 +84,9 @@ def random_spawn(area: pygame.rect.Rect, excluded: list = None) -> (int, int):
     while bad_pos:
         pos_x = random.randrange(area.left, area.right, 10)
         pos_y = random.randrange(area.top, area.bottom, 10)
-        print(f'({pos_x}, {pos_y})')
         if excluded:
             x_area: pygame.rect.Rect
             for x_area in excluded:
-                print(x_area)
                 if not (x_area.left < pos_x < x_area.right and x_area.top < pos_y < x_area.bottom):
                     bad_pos = False
         else:
