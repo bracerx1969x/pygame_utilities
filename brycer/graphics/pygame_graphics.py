@@ -72,7 +72,7 @@ def draw_cross(surface, crosspoint, line_color, line_width, horizontal=True, ver
                         )
 
 
-def random_spawn(area: pygame.rect.Rect, excluded: list = None) -> (int, int):
+def position_inbounds(area: pygame.rect.Rect, excluded: list = None) -> (int, int):
     """
     :param area - overall game boundaries
     :param excluded - list of pygame.rect.Rect containing excluded zones
