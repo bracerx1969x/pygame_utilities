@@ -83,7 +83,7 @@ if __name__ == '__main__':
     print("testing")
     pygame.init()
     WIN_WIDTH, WIN_HEIGHT = (800, 600)
-    win_display, win_rect = setup_display(WIN_WIDTH, WIN_HEIGHT, "Graphic Maker test")
+    win_display, win_rect = setup_display(WIN_WIDTH, WIN_HEIGHT, "Image Factory test")
     image_folder = os.path.join(os.path.normpath("C:/Users/robkw/coding/steering_tests"), "img")
     sm_asteroid_img = os.path.join(image_folder, "asteroid_med.png")
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     single_image1 = single.get_image()
     single_image = pygame.transform.rotate(single_image1, -135)
     single_rect = single_image.get_rect()
-    single_rect.move_ip(290, 250)
+    single_rect.move_ip(220, 200)
 
     drawn = ImageFactory.get_handler(
                                      ImageFactory.DRAWN,
@@ -105,12 +105,24 @@ if __name__ == '__main__':
     drawn_image1 = drawn.get_image()
     drawn_image = pygame.transform.rotate(drawn_image1, 75)
     drawn_rect = drawn_image.get_rect()
-    drawn_rect.move_ip(600, 20)
+    drawn_rect.move_ip(50, 240)
+
+    rocket_off = os.path.join(image_folder, 'rocket_sm_off.png')
+    rocket_thrusters = os.path.join(image_folder, 'rocket_sm_thrusters.png')
+    path_dict = {'off': (rocket_off,),
+                 'thrusters': (rocket_thrusters,)}
+    multi = ImageFactory.get_handler(
+                                     ImageFactory.MULTI_IMAGE,
+                                     path_dict,
+                                     default='off'
+                                    )
+    multi_image1 = multi.get_image()
+    multi_image = pygame.transform.rotate(multi_image1, 65)
+    multi_rect = multi_image.get_rect()
+    multi_rect.move_ip(450, 230)
 
     """
-    Idea for how Multiple Images and Spritesheets will work:
-    # print(ImageFactory.get_handler(ImageFactory.MULTI_IMAGE, 
-                                     frame_dict={'name': (frame_path),...}, default=default_frame))
+    Idea for how Spritesheets will work:
     # print(ImageFactory.get_handler(ImageFactory.SPRITESHEET, 
                                      path="spritesheet image filepath", 
                                      size=(cols, rows),
@@ -128,6 +140,15 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 running = False
 
+            keys = pygame.key.get_pressed()
+
+            if keys[pygame.K_UP]:
+                multi.sequence = 'thrusters'
+            else:
+                multi.sequence = 'off'
+            multi_image1 = multi.get_image()
+            # print(multi.sequence)
+
         if tock % 1 == 0:
             tock = 0
             angle = (angle + 1) % 360
@@ -140,9 +161,14 @@ if __name__ == '__main__':
             drawn_image = pygame.transform.rotate(drawn_image1, 360 - 2 * angle - 135)
             drawn_rect = drawn_image.get_rect(center = drawn_pos)
 
+            multi_pos = multi_rect.center
+            multi_image = pygame.transform.rotate(multi_image1, 2 * angle - 135)
+            multi_rect = multi_image.get_rect(center = multi_pos)
+
         win_display.fill(BLACK)
         win_display.blit(single_image, single_rect)
         win_display.blit(drawn_image, drawn_rect)
+        win_display.blit(multi_image, multi_rect)
         pygame.display.update()
 
     pygame.quit()
